@@ -17,15 +17,17 @@ pip install -r requirements.txt
 
 Run the application
 -------------------
+```
 $ python api.py
  * Running on http://127.0.0.1:5000/
  * Restarting with reloader
-
+```
 
 Test the response
 -----------------
 
 Now open up a new prompt to test out your API using curl
-
+```
 $ curl http://127.0.0.1:5000/
 {"hello": "world"}
+```
