@@ -1,4 +1,5 @@
 # secure-messaging-api
+[![Build Status](https://travis-ci.org/qateam123/secure-messaging-api.svg?branch=master)](https://travis-ci.org/qateam123/secure-messaging-api)
 
 ## Setup
 Based on python 3.4
