@@ -1,10 +1,8 @@
-import unittest
 import sys
-import os
 import unittest
-import tempfile
 from app import api
 sys.path.append('../secure-messaging-api')
+
 
 class FlaskTestCase(unittest.TestCase):
 
