@@ -1,7 +1,6 @@
 from sqlalchemy import Column, String, DateTime
 from app.database import base
 
-
 class SecureMessage(base):
     __tablename__ = "secure_message"
     secure__id = Column("eq_session_id", String, primary_key=True)
