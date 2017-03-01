@@ -1,17 +1,25 @@
 version: '2'
 
 services:
-
-  secure-messaging-ui:
-    build: ./
-    restart: always
-    volumes:
-      - ./app:/code/app
+  db:
+    image: postgres:9.4
+    environment:
+      POSTGRES_PASSWORD: digitaleq
+      POSTGRES_USER: digitaleq
+      POSTGRES_DB: runner
+    ports:
+      - "5433:5432"
     networks:
-      - ui-env
+      - eq-env
+
+  secure-messaging-api:
+    build: .
+    restart: always
+    networks:
+      - eq-env
     ports:
       - "5000:5000"
 
 networks:
-  ui-env:
+  eq-env:
     driver: bridge
