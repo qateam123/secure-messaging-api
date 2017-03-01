@@ -1,7 +1,7 @@
 import sys
 import unittest
-from app import api
 sys.path.append('../secure-messaging-api')
+from app import api
 
 
 class FlaskTestCase(unittest.TestCase):
