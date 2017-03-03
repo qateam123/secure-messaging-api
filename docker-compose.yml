@@ -18,7 +18,7 @@ services:
     networks:
       - eq-env
     ports:
-      - "5000:5000"
+      - "5050:5050"
 
 networks:
   eq-env:

@@ -3,6 +3,8 @@ from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
+from contextlib import contextmanager
+from sqlalchemy.exc import SQLAlchemyError
 
 from app import settings
 
@@ -20,3 +22,16 @@ def init_db():
     # you will have to import them first before calling init_db()
     import app.model
     base.metadata.create_all(bind=engine)
+
+
+@contextmanager
+def commit_or_rollback(database_session):
+    try:
+        yield database_session
+        logger.info("TRYING TO COMMIT CHANGES")
+        database_session.commit()
+        logger.info("COMMITED CHANGES")
+    except SQLAlchemyError as e:
+        database_session.rollback()
+        logger.info(str(e))
+        raise

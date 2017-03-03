@@ -11,7 +11,4 @@ class HelloWorld(Resource):
         return {'hello': 'world'}
 
 api.add_resource(HelloWorld, '/')
-api.add_resource(Message, '/message/<int:id>')
-
-if __name__ == '__main__':
-    app.run(debug=True)
+api.add_resource(Message, '/message', methods=['POST'])
