@@ -1,9 +1,8 @@
 import unittest
 from flask import json
-import requests
 import sys
 sys.path.append('../secure-messaging-api')
-from app import api
+from app import application
 from app import settings
 from sqlalchemy import create_engine
 
@@ -19,7 +18,7 @@ class FlaskTestCase(unittest.TestCase):
 
     def setUp(self):
         # creates a test client
-        self.app = api.app.test_client()
+        self.app = application.app.test_client()
         # propagate the exceptions to the test client
         #self.app.testing = True
 
@@ -35,8 +34,8 @@ class FlaskTestCase(unittest.TestCase):
         url = "http://localhost:5050/message"
         data = {'to': "Emilio", 'from': "Tej", 'body': "Hello World"}
         headers = {'Content-Type': 'application/json'}
-        response = requests.post(url, data=json.dumps(data), headers=headers)
-        self.assertEqual(response.json(), {'status': "ok"})
+        response = self.app.post(url, data=json.dumps(data), headers=headers)
+        self.assertEqual(json.loads(response.get_data()), {'status': "ok"})
 
 
     def test_that_checks_post_request_is_within_database(self):
