@@ -1,5 +1,8 @@
 import os
+from app import settings
+
 basedir = os.path.abspath(os.path.dirname(__file__))
+
 
 
 class Config(object):
@@ -7,4 +10,4 @@ class Config(object):
    TESTING = False
    CSRF_ENABLED = True
    SECRET_KEY = 'this-really-needs-to-be-changed'
-   SQLALCHEMY_DATABASE_URI = "postgresql://ras_collection_instrument:password@localhost:5431/postgres"
+   DATABASE_URI = settings.SECURE_MESSAGING_DATABASE_URL

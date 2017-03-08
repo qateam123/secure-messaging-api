@@ -6,6 +6,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from contextlib import contextmanager
 from sqlalchemy.exc import SQLAlchemyError
 
+import os
+
 from app import settings
 
 logger = get_logger()
@@ -38,7 +40,7 @@ def init_db():
 def commit_or_rollback(database_session):
     try:
         yield database_session
-        logger.info("TRYING TO COMMIT CHANGES")
+        logger.info("TRYING TO COMMIT CHANGES to " + str(os.getenv('SECURE_MESSAGING_DATABASE_URL', 'no env')))
         database_session.commit()
         logger.info("COMMITED CHANGES")
     except SQLAlchemyError as e:

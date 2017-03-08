@@ -11,21 +11,13 @@ class Message(Resource):
 
     def post(self):
         message = request.get_json()
-        #message = {'to': "toPerson", 'from': "fromPerson", 'body': "body stuff"}
+
+        secure_message = SecureMessage(message['to'], message['from'], message['body'])
 
         try:
-            secure_message = SecureMessage(message['to'], message['from'], message['body'])
-        except BaseException as error:
-            return jsonify(result="could not make message", error=str(error))
-            #logger.info("DID NOT CREATE FEEDBACK RESPONSE: " + str(error))
-
-        try:
-            #logger.info("using commit_or_rollback")
             with commit_or_rollback(db_session):
-                #logger.info("ADDING ON TO SESSION")
                 db_session.add(secure_message)
         except BaseException as error:
-            #logger.info("Database commit failed: " + str(error))
             return jsonify(result="false")
 
         content = {'status': "ok"}
