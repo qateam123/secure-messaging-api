@@ -14,6 +14,12 @@ class SecureMessage(db.Model):
     body = Column("body", String)
     # submitted_at = Column("submitted_at", DateTime)
 
+    def __init__(self, msg_to, msg_from, body):
+        self.msg_to = msg_to
+        self.msg_from = msg_from
+        self.body = body
+        # self.submitted_at = datetime.now()
+
 class Message():
 
     def __init__(self, msg_to, msg_from, body):
