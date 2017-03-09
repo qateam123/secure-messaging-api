@@ -1,6 +1,6 @@
 import unittest
 import json
-from app.resources.message import Message, MessageSchema
+from app.data_model.model import Message, MessageSchema
 
 class MessageTestCase(unittest.TestCase):
 
