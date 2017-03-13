@@ -31,7 +31,7 @@ class FlaskTestCase(unittest.TestCase):
 
     def test_post_request_message_goes_to_database(self):
         # post json message written up in the ui
-        url = "http://localhost:5050/message"
+        url = "http://localhost:5050/send"
         data = {'to': "Emilio", 'from': "Tej", 'body': "Hello World"}
         headers = {'Content-Type': 'application/json'}
         response = self.app.post(url, data=json.dumps(data), headers=headers)
