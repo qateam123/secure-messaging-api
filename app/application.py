@@ -13,8 +13,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = settings.SECURE_MESSAGING_DATABASE_URL
 database.db.init_app(app)
 
 with app.app_context():
-     database.db.create_all()
-     database.db.session.commit()
+    database.db.create_all()
+    database.db.session.commit()
+
 
 class HelloWorld(Resource):
     def get(self):

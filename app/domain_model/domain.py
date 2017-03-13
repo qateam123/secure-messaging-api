@@ -1,5 +1,6 @@
 from marshmallow import Schema, fields, post_load
 
+
 class Message:
 
     def __init__(self, msg_to, msg_from, body):
@@ -13,6 +14,7 @@ class Message:
 
     def __eq__(self, other):
         return self.__dict__ == other.__dict__
+
 
 class MessageSchema(Schema):
 

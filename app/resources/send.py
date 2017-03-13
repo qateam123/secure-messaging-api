@@ -5,6 +5,7 @@ from app.domain_model.domain import Message
 from app.services.saver import Saver
 # use constructor to create dependencies, loose coupling
 
+
 class Send(Resource):
 
     def get(self):
@@ -13,8 +14,8 @@ class Send(Resource):
     def post(self):
         message_json = request.get_json()
         message = Message(message_json['to'], message_json['from'], message_json['body'])
-        messageService = Saver()
-        messageService.saveMessage(message)
+        message_service = Saver()
+        message_service.saveMessage(message)
         content = {'status': "ok"}
         resp = jsonify(content)
         resp.status_code = 200

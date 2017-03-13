@@ -2,6 +2,7 @@ import unittest
 import json
 from app.domain_model.domain import Message, MessageSchema
 
+
 class MessageTestCase(unittest.TestCase):
 
     def testMarshalJson(self):

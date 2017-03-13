@@ -1,10 +1,11 @@
+from app import application
+from app import settings
+from sqlalchemy import create_engine
 import unittest
 from flask import json
 import sys
 sys.path.append('../secure-messaging-api')
-from app import application
-from app import settings
-from sqlalchemy import create_engine
+
 
 class FlaskTestCase(unittest.TestCase):
 
@@ -20,7 +21,7 @@ class FlaskTestCase(unittest.TestCase):
         # creates a test client
         self.app = application.app.test_client()
         # propagate the exceptions to the test client
-        #self.app.testing = True
+        # self.app.testing = True
 
     def test_home_status_code(self):
         '''sends HTTP GET request to the application
@@ -37,18 +38,17 @@ class FlaskTestCase(unittest.TestCase):
         response = self.app.post(url, data=json.dumps(data), headers=headers)
         self.assertEqual(json.loads(response.get_data()), {'status': "ok"})
 
-
     def test_that_checks_post_request_is_within_database(self):
-        #check if json message is inside the database
+        # check if json message is inside the database
         engine = create_engine(settings.SECURE_MESSAGING_DATABASE_URL, echo=True)
-        data={}
+
         with engine.connect() as con:
             request = con.execute('SELECT * FROM secure_message WHERE id = (SELECT MAX(id) FROM secure_message)')
             for row in request:
-                data={"to": row['msg_to'], "from": row['msg_from'], "body": row['body']}
+                data = {"to": row['msg_to'], "from": row['msg_from'], "body": row['body']}
                 # print("to:", row['msg_to'], "from:", row['msg_from'], "body:", row['body'])
-                self.assertEqual({'to': 'Emilio', 'from': 'Tej', 'body': 'Hello World'},data)
-                #con.close()
+                self.assertEqual({'to': 'Emilio', 'from': 'Tej', 'body': 'Hello World'}, data)
+                # con.close()
 
     # def tearDown(self):
     #     # Closing down the database
