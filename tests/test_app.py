@@ -1,10 +1,10 @@
+import sys
+sys.path.append('../secure-messaging-api')
 from app import application
 from app import settings
 from sqlalchemy import create_engine
 import unittest
 from flask import json
-import sys
-sys.path.append('../secure-messaging-api')
 
 
 class FlaskTestCase(unittest.TestCase):
