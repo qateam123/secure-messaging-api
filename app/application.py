@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Resource, Api
-from app.resources.send import Send
+from app.resources.messages import Messages
+from app.resources.health import Health
 from structlog import get_logger
 from app.data_model import database
 from app import settings
@@ -16,10 +17,5 @@ with app.app_context():
     database.db.create_all()
     database.db.session.commit()
 
-
-class HelloWorld(Resource):
-    def get(self):
-        return {'hello': 'world'}
-
-api.add_resource(HelloWorld, '/')
-api.add_resource(Send, '/send', methods=['POST'])
+api.add_resource(Health, '/health')
+api.add_resource(Messages, '/messages/send', '/messages/<int:id>', methods=['POST', 'GET'])

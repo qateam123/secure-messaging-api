@@ -24,18 +24,23 @@ class FlaskTestCase(unittest.TestCase):
         # self.app.testing = True
 
     def test_home_status_code(self):
-        '''sends HTTP GET request to the application
-        on the specified path'''
-        result = self.app.get('/')
-        # assert the status code of the response
+        """sends HTTP GET request to the application
+        on the specified path"""
+        result = self.app.get('/health')
+        """ assert the status code of the response """
         self.assertEqual(result.status_code, 200)
 
     def test_post_request_message_goes_to_database(self):
         # post json message written up in the ui
-        url = "http://localhost:5050/send"
+        url = "http://localhost:5050/messages/send"
         data = {'to': "Emilio", 'from': "Tej", 'body': "Hello World"}
         headers = {'Content-Type': 'application/json'}
         response = self.app.post(url, data=json.dumps(data), headers=headers)
+        self.assertEqual(json.loads(response.get_data()), {'status': "ok"})
+
+    def test_get_request_message(self):
+        url = "http://localhost:5050/messages/21"
+        response = self.app.get(url)
         self.assertEqual(json.loads(response.get_data()), {'status': "ok"})
 
     def test_that_checks_post_request_is_within_database(self):
