@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Resource, Api
-from app.resources.messages import Messages
+from app.resources.messages import Messages, MessagesById
 from app.resources.health import Health
 from structlog import get_logger
 from app.data_model import database
@@ -18,4 +18,5 @@ with app.app_context():
     database.db.session.commit()
 
 api.add_resource(Health, '/health')
-api.add_resource(Messages, '/messages/send', '/messages/<int:id>', methods=['POST', 'GET'])
+api.add_resource(Messages, '/messages/send', '/messages', methods=['POST', 'GET'])
+api.add_resource(MessagesById, '/messages/<int:id>', methods=['GET', 'PUT'])
