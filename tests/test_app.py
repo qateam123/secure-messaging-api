@@ -43,7 +43,6 @@ class FlaskTestCase(unittest.TestCase):
         response = self.app.get(url)
         self.assertEqual(json.loads(response.get_data()), {'status': "ok"})
 
-
     def test_get_request_message(self):
         url = "http://localhost:5050/messages/21"
         response = self.app.get(url)
