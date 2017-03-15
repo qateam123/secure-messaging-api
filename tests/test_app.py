@@ -23,16 +23,15 @@ class FlaskTestCase(unittest.TestCase):
         # propagate the exceptions to the test client
         # self.app.testing = True
 
-    def test_home_status_code(self):
-        """sends HTTP GET request to the application
-        on the specified path"""
-        result = self.app.get('/health')
+    def test_health_status(self):
+        """sends GET request to the application health monitor endpoint"""
+        response = self.app.get('/health')
         """ assert the status code of the response """
-        self.assertEqual(result.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
     def test_post_request_message_goes_to_database(self):
         # post json message written up in the ui
-        url = "http://localhost:5050/messages/send"
+        url = "http://localhost:5050/message/send"
         data = {'to': "Emilio", 'from': "Tej", 'body': "Hello World"}
         headers = {'Content-Type': 'application/json'}
         response = self.app.post(url, data=json.dumps(data), headers=headers)
@@ -43,8 +42,13 @@ class FlaskTestCase(unittest.TestCase):
         response = self.app.get(url)
         self.assertEqual(json.loads(response.get_data()), {'status': "ok"})
 
+    def test_post_request_all_message_fails(self):
+        url = "http://localhost:5050/messages"
+        response = self.app.post(url)
+        self.assertEqual(response.status_code, 405)
+
     def test_get_request_message(self):
-        url = "http://localhost:5050/messages/21"
+        url = "http://localhost:5050/message/21"
         response = self.app.get(url)
         self.assertEqual(json.loads(response.get_data()), {'status': "ok"})
 
