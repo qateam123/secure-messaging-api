@@ -31,6 +31,20 @@ class MessageSchema(Schema):
         if len(x) > 100:
             raise ValidationError('Quantity must not be greater than 100.')
 
+    @validates('msg_from')
+    def validate(self, x):
+        if len(x) <= 0:
+            raise ValidationError('Quantity must be greater than 0.')
+        if len(x) > 100:
+            raise ValidationError('Quantity must not be greater than 100.')
+
+    @validates('body')
+    def validate(self, x):
+        if len(x) <= 0:
+            raise ValidationError('Quantity must be greater than 0.')
+        if len(x) > 1000:
+            raise ValidationError('Quantity must not be greater than 100.')
+
     @post_load
     def make_message(self, data):
         return Message(**data)
