@@ -25,21 +25,21 @@ class MessageSchema(Schema):
     body = fields.Str(required=True)
 
     @validates('msg_to')
-    def validate_length(self, x):
+    def validate_msg_to_length(self, x):
         if len(x) <= 0:
             raise ValidationError('Quantity must be greater than 0.')
         if len(x) > 100:
             raise ValidationError('Quantity must not be greater than 100.')
 
     @validates('msg_from')
-    def validate(self, x):
+    def validate_msg_from_length(self, x):
         if len(x) <= 0:
             raise ValidationError('Quantity must be greater than 0.')
         if len(x) > 100:
             raise ValidationError('Quantity must not be greater than 100.')
 
     @validates('body')
-    def validate(self, x):
+    def validate_body_length(self, x):
         if len(x) <= 0:
             raise ValidationError('Quantity must be greater than 0.')
         if len(x) > 1000:
