@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields, post_load
+from marshmallow import Schema, fields, post_load, validates, ValidationError
 
 
 class Message:
@@ -20,9 +20,16 @@ class MessageSchema(Schema):
 
     """ Class to marshal JSON to Message"""
 
-    msg_to = fields.Str()
-    msg_from = fields.Str()
-    body = fields.Str()
+    msg_to = fields.Str(required=True)
+    msg_from = fields.Str(required=True)
+    body = fields.Str(required=True)
+
+    @validates('msg_to')
+    def validate_length(self, x):
+        if len(x) <= 0:
+            raise ValidationError('Quantity must be greater than 0.')
+        if len(x) > 100:
+            raise ValidationError('Quantity must not be greater than 100.')
 
     @post_load
     def make_message(self, data):
